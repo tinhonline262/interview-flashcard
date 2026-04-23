@@ -197,7 +197,7 @@
 }
 
 .enhanced-study-tips li:before {
-  content: '→ ';
+  content: "→ ";
   color: var(--primary-color, #667eea);
   font-weight: 600;
   margin-right: 8px;

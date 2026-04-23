@@ -38,7 +38,11 @@
 }
 
 .sr-stat-item.highlight {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(99, 102, 241, 0.05) 100%
+  );
   border-color: var(--primary-color, #3b82f6);
 }
 

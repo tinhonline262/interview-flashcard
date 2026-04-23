@@ -1,62 +1,65 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import type { SpacedRepetitionData, SpacedRepetitionStats } from './spaced-repetition'
-import { getDifficultyLevel, formatNextReviewDate } from './spaced-repetition'
-import { useLanguage } from '../context/language-context'
+import { useState } from "react";
+import type {
+  SpacedRepetitionData,
+  SpacedRepetitionStats,
+} from "./spaced-repetition";
+import { getDifficultyLevel, formatNextReviewDate } from "./spaced-repetition";
+import { useLanguage } from "../context/language-context";
 
 interface SpacedRepetitionStatsProps {
-  stats: SpacedRepetitionStats
-  onResetClick?: () => void
-  onExportClick?: () => void
+  stats: SpacedRepetitionStats;
+  onResetClick?: () => void;
+  onExportClick?: () => void;
 }
 
 const translations = {
   en: {
-    statistics: 'Learning Statistics',
-    itemsTracked: 'Items Tracked',
-    dueTodayLeft: 'Due Today',
-    mastered: 'Mastered',
-    newItems: 'New Items',
-    avgEaseFactor: 'Avg. Ease Factor',
-    totalReviews: 'Total Reviews',
-    daysSinceReview: 'Days Since Review',
-    today: 'Today',
-    reset: 'Reset Progress',
-    export: 'Export Data',
-    confirmReset: 'Reset all progress? This cannot be undone.',
+    statistics: "Learning Statistics",
+    itemsTracked: "Items Tracked",
+    dueTodayLeft: "Due Today",
+    mastered: "Mastered",
+    newItems: "New Items",
+    avgEaseFactor: "Avg. Ease Factor",
+    totalReviews: "Total Reviews",
+    daysSinceReview: "Days Since Review",
+    today: "Today",
+    reset: "Reset Progress",
+    export: "Export Data",
+    confirmReset: "Reset all progress? This cannot be undone.",
   },
   vi: {
-    statistics: 'Thống Kê Học Tập',
-    itemsTracked: 'Mục Được Theo Dõi',
-    dueTodayLeft: 'Đến Hạn Hôm Nay',
-    mastered: 'Đã Thành Thạo',
-    newItems: 'Mục Mới',
-    avgEaseFactor: 'Hệ Số Dễ Trung Bình',
-    totalReviews: 'Tổng Lần Ôn Tập',
-    daysSinceReview: 'Ngày Kể Từ Ôn Tập',
-    today: 'Hôm nay',
-    reset: 'Đặt Lại Tiến Độ',
-    export: 'Xuất Dữ Liệu',
-    confirmReset: 'Đặt lại tất cả tiến độ? Hành động này không thể hoàn tác.',
+    statistics: "Thống Kê Học Tập",
+    itemsTracked: "Mục Được Theo Dõi",
+    dueTodayLeft: "Đến Hạn Hôm Nay",
+    mastered: "Đã Thành Thạo",
+    newItems: "Mục Mới",
+    avgEaseFactor: "Hệ Số Dễ Trung Bình",
+    totalReviews: "Tổng Lần Ôn Tập",
+    daysSinceReview: "Ngày Kể Từ Ôn Tập",
+    today: "Hôm nay",
+    reset: "Đặt Lại Tiến Độ",
+    export: "Xuất Dữ Liệu",
+    confirmReset: "Đặt lại tất cả tiến độ? Hành động này không thể hoàn tác.",
   },
-}
+};
 
 export function SpacedRepetitionStats({
   stats,
   onResetClick,
   onExportClick,
 }: SpacedRepetitionStatsProps) {
-  const { locale } = useLanguage()
-  const t = translations[locale === 'en' ? 'en' : 'vi']
-  const [showReset, setShowReset] = useState(false)
+  const { locale } = useLanguage();
+  const t = translations[locale === "en" ? "en" : "vi"];
+  const [showReset, setShowReset] = useState(false);
 
   const handleReset = () => {
     if (confirm(t.confirmReset)) {
-      onResetClick?.()
-      setShowReset(false)
+      onResetClick?.();
+      setShowReset(false);
     }
-  }
+  };
 
   return (
     <div className="sr-stats-container">
@@ -79,7 +82,9 @@ export function SpacedRepetitionStats({
           <div className="sr-stat-label">{t.newItems}</div>
         </div>
         <div className="sr-stat-item">
-          <div className="sr-stat-value">{stats.averageEaseFactor.toFixed(2)}</div>
+          <div className="sr-stat-value">
+            {stats.averageEaseFactor.toFixed(2)}
+          </div>
           <div className="sr-stat-label">{t.avgEaseFactor}</div>
         </div>
         <div className="sr-stat-item">
@@ -88,7 +93,9 @@ export function SpacedRepetitionStats({
         </div>
         <div className="sr-stat-item">
           <div className="sr-stat-value">
-            {stats.daysSinceLastReview === null ? t.today : stats.daysSinceLastReview}
+            {stats.daysSinceLastReview === null
+              ? t.today
+              : stats.daysSinceLastReview}
           </div>
           <div className="sr-stat-label">{t.daysSinceReview}</div>
         </div>
@@ -107,49 +114,51 @@ export function SpacedRepetitionStats({
         )}
       </div>
     </div>
-  )
+  );
 }
 
 interface ItemDifficultyBadgeProps {
-  easeFactor: number
+  easeFactor: number;
 }
 
 export function ItemDifficultyBadge({ easeFactor }: ItemDifficultyBadgeProps) {
-  const difficulty = getDifficultyLevel(easeFactor)
+  const difficulty = getDifficultyLevel(easeFactor);
   const label = {
-    easy: 'Easy',
-    normal: 'Normal',
-    hard: 'Hard',
-    'very-hard': 'Very Hard',
-  }[difficulty]
+    easy: "Easy",
+    normal: "Normal",
+    hard: "Hard",
+    "very-hard": "Very Hard",
+  }[difficulty];
 
-  return <span className={`sr-difficulty sr-difficulty-${difficulty}`}>{label}</span>
+  return (
+    <span className={`sr-difficulty sr-difficulty-${difficulty}`}>{label}</span>
+  );
 }
 
 interface ItemReviewInfoProps {
-  data: SpacedRepetitionData
+  data: SpacedRepetitionData;
 }
 
 export function ItemReviewInfo({ data }: ItemReviewInfoProps) {
-  const { locale } = useLanguage()
+  const { locale } = useLanguage();
   const t = {
     en: {
-      nextReview: 'Next review:',
-      reviews: 'Reviews:',
-      interval: 'Interval:',
-      days: 'days',
-      lapses: 'Lapses:',
-      reps: 'Reps:',
+      nextReview: "Next review:",
+      reviews: "Reviews:",
+      interval: "Interval:",
+      days: "days",
+      lapses: "Lapses:",
+      reps: "Reps:",
     },
     vi: {
-      nextReview: 'Ôn tập tiếp:',
-      reviews: 'Ôn tập:',
-      interval: 'Khoảng:',
-      days: 'ngày',
-      lapses: 'Lỗi:',
-      reps: 'Lần:',
+      nextReview: "Ôn tập tiếp:",
+      reviews: "Ôn tập:",
+      interval: "Khoảng:",
+      days: "ngày",
+      lapses: "Lỗi:",
+      reps: "Lần:",
     },
-  }[locale === 'en' ? 'en' : 'vi']
+  }[locale === "en" ? "en" : "vi"];
 
   return (
     <div className="sr-review-info">
@@ -172,37 +181,40 @@ export function ItemReviewInfo({ data }: ItemReviewInfoProps) {
         </>
       )}
     </div>
-  )
+  );
 }
 
 interface ReviewQualityButtonsProps {
-  onQualitySelect: (quality: 0 | 1 | 2 | 3 | 4 | 5) => void
-  disabled?: boolean
+  onQualitySelect: (quality: 0 | 1 | 2 | 3 | 4 | 5) => void;
+  disabled?: boolean;
 }
 
 /**
  * Quality rating buttons (0-5) for recording review feedback
  */
-export function ReviewQualityButtons({ onQualitySelect, disabled }: ReviewQualityButtonsProps) {
-  const { locale } = useLanguage()
+export function ReviewQualityButtons({
+  onQualitySelect,
+  disabled,
+}: ReviewQualityButtonsProps) {
+  const { locale } = useLanguage();
   const t = {
     en: {
-      rating: 'How well do you remember this?',
-      forgotten: 'Forgotten',
-      hard: 'Hard',
-      good: 'Good',
-      easy: 'Easy',
-      perfect: 'Perfect',
+      rating: "How well do you remember this?",
+      forgotten: "Forgotten",
+      hard: "Hard",
+      good: "Good",
+      easy: "Easy",
+      perfect: "Perfect",
     },
     vi: {
-      rating: 'Bạn nhớ bao nhiêu?',
-      forgotten: 'Quên hết',
-      hard: 'Khó',
-      good: 'Tốt',
-      easy: 'Dễ',
-      perfect: 'Hoàn hảo',
+      rating: "Bạn nhớ bao nhiêu?",
+      forgotten: "Quên hết",
+      hard: "Khó",
+      good: "Tốt",
+      easy: "Dễ",
+      perfect: "Hoàn hảo",
     },
-  }[locale === 'en' ? 'en' : 'vi']
+  }[locale === "en" ? "en" : "vi"];
 
   return (
     <div className="sr-quality-buttons">
@@ -250,5 +262,5 @@ export function ReviewQualityButtons({ onQualitySelect, disabled }: ReviewQualit
         </button>
       </div>
     </div>
-  )
+  );
 }

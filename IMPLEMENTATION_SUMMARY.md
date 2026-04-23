@@ -7,6 +7,7 @@ A complete, production-ready spaced repetition system has been added to your int
 ## Files Added
 
 ### Core Algorithm
+
 - **`app/interview/spaced-repetition.ts`** (400+ lines)
   - SM-2 algorithm implementation
   - Core data structures and types
@@ -16,6 +17,7 @@ A complete, production-ready spaced repetition system has been added to your int
   - Utility functions for common operations
 
 ### React Integration
+
 - **`app/interview/use-spaced-repetition.ts`** (200+ lines)
   - Custom React hook for easy integration
   - Automatic localStorage persistence
@@ -24,6 +26,7 @@ A complete, production-ready spaced repetition system has been added to your int
   - Export/import/reset utilities
 
 ### UI Components
+
 - **`app/interview/spaced-repetition-ui.tsx`** (300+ lines)
   - `SpacedRepetitionStats`: Overview dashboard with statistics
   - `ItemDifficultyBadge`: Visual difficulty indicator
@@ -32,6 +35,7 @@ A complete, production-ready spaced repetition system has been added to your int
   - Bilingual support (English/Vietnamese)
 
 ### Styling
+
 - **`app/interview/spaced-repetition.css`** (300+ lines)
   - Complete styling for all SR components
   - Responsive design (mobile, tablet, desktop)
@@ -39,6 +43,7 @@ A complete, production-ready spaced repetition system has been added to your int
   - Smooth animations and transitions
 
 ### Examples & Documentation
+
 - **`app/interview/spaced-repetition-example.tsx`** (400+ lines)
   - `EnhancedFlashcardView`: Full-featured flashcard component
   - `LearningDashboard`: Learning insights dashboard
@@ -51,6 +56,7 @@ A complete, production-ready spaced repetition system has been added to your int
   - Responsive layouts
 
 ### Documentation
+
 - **`SPACED_REPETITION_QUICKSTART.md`** (200+ lines)
   - Quick start guide
   - 30-second integration
@@ -70,17 +76,20 @@ A complete, production-ready spaced repetition system has been added to your int
 ## What You Can Do Now
 
 ### ✅ Track Learning Progress
+
 - Record user confidence level (0-5) for each review
 - Automatically calculate when to review items next
 - Track individual item statistics
 
 ### ✅ Smart Review Scheduling
+
 - Items due for review are prioritized
 - Review intervals increase exponentially for mastered items
 - Weak items get more frequent reviews
 - Overdue items appear first
 
 ### ✅ Learning Statistics
+
 - Total items tracked
 - Items due for review
 - Mastered items count
@@ -90,30 +99,35 @@ A complete, production-ready spaced repetition system has been added to your int
 - Days since last review
 
 ### ✅ Data Persistence
+
 - All data saved to browser localStorage automatically
 - No server setup required
 - Export data as JSON for backup
 - Import data to restore progress
 
 ### ✅ Visual Feedback
+
 - Difficulty badge for each item
 - Review schedule information
 - Learning progress dashboard
 - Statistics dashboard
 
 ### ✅ Multi-Language Support
+
 - English and Vietnamese translations included
 - Easy to add more languages
 
 ## Key Features
 
 ### SM-2 Algorithm
+
 - **Proven Method**: Used by Anki and other popular flashcard apps
 - **Scientifically-Backed**: Based on spaced repetition research
 - **Adaptive Learning**: Difficulty factor adjusts based on performance
 - **Efficient**: Minimizes study time while maximizing retention
 
 ### Data Structures
+
 ```typescript
 // Spaced repetition data per item
 {
@@ -130,61 +144,64 @@ A complete, production-ready spaced repetition system has been added to your int
 ```
 
 ### React Hook API
+
 ```typescript
-const sr = useSpacedRepetition(allItems)
+const sr = useSpacedRepetition(allItems);
 
 // Recording
-sr.recordReview(itemId, quality)
+sr.recordReview(itemId, quality);
 
 // Querying
-sr.getItemData(itemId)
-sr.getAllData()
-sr.stats
-sr.reviewQueue
-sr.dueItems, sr.newItems, sr.masteredItems
+sr.getItemData(itemId);
+sr.getAllData();
+sr.stats;
+sr.reviewQueue;
+(sr.dueItems, sr.newItems, sr.masteredItems);
 
 // Utilities
-sr.isDueForReview(data)
-sr.getDaysUntilReview(data)
-sr.getDifficultyLevel(easeFactor)
-sr.formatNextReviewDate(data)
+sr.isDueForReview(data);
+sr.getDaysUntilReview(data);
+sr.getDifficultyLevel(easeFactor);
+sr.formatNextReviewDate(data);
 
 // Management
-sr.exportData()
-sr.importData(json)
-sr.resetAll()
-sr.resetItems(ids)
+sr.exportData();
+sr.importData(json);
+sr.resetAll();
+sr.resetItems(ids);
 ```
 
 ## Quality Ratings (0-5)
 
-| Rating | Meaning | Effect |
-|--------|---------|--------|
-| **5** | Perfect recall | ✅ Increase interval, increase ease |
-| **4** | Correct, slight hesitation | ✅ Increase interval, increase ease |
-| **3** | Correct with effort | ✅ Increase interval, maintain ease |
-| **2** | Incorrect, partial recall | ❌ Reset, decrease ease |
-| **1** | Incorrect, familiar | ❌ Reset, decrease ease |
-| **0** | Complete blank | ❌ Reset, decrease ease |
+| Rating | Meaning                    | Effect                              |
+| ------ | -------------------------- | ----------------------------------- |
+| **5**  | Perfect recall             | ✅ Increase interval, increase ease |
+| **4**  | Correct, slight hesitation | ✅ Increase interval, increase ease |
+| **3**  | Correct with effort        | ✅ Increase interval, maintain ease |
+| **2**  | Incorrect, partial recall  | ❌ Reset, decrease ease             |
+| **1**  | Incorrect, familiar        | ❌ Reset, decrease ease             |
+| **0**  | Complete blank             | ❌ Reset, decrease ease             |
 
 ## Integration Steps
 
 ### Minimal (5 minutes)
+
 ```typescript
 // 1. Import
-import { useSpacedRepetition } from './use-spaced-repetition'
+import { useSpacedRepetition } from "./use-spaced-repetition";
 
 // 2. Use hook
-const sr = useSpacedRepetition(allQuestions)
+const sr = useSpacedRepetition(allQuestions);
 
 // 3. Record review
-sr.recordReview(questionId, 5)
+sr.recordReview(questionId, 5);
 
 // 4. Show stats
-console.log(sr.stats.itemsDueForReview)
+console.log(sr.stats.itemsDueForReview);
 ```
 
 ### Full (30 minutes)
+
 1. Import hook and UI components
 2. Add CSS files
 3. Replace existing flashcard with enhanced version
@@ -192,6 +209,7 @@ console.log(sr.stats.itemsDueForReview)
 5. Add export/import buttons
 
 ### Advanced (1 hour)
+
 1. Full custom styling
 2. Add learning dashboard
 3. Add study goals
