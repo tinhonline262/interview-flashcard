@@ -1868,3 +1868,27 @@
   .iv-topbar { padding-left: max(12px, env(safe-area-inset-left)); padding-right: max(12px, env(safe-area-inset-right)); }
   .iv-content { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
 }
+
+/* ═══ Flashcard Mode Styles ═══ */
+.iv-flashcard-container { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 800px; margin: 0 auto; margin-top: 20px; gap: 20px; padding: 20px; }
+.iv-flashcard-progress { font-size: 0.9rem; font-weight: 600; color: var(--ink-faint); letter-spacing: 0.05em; }
+.iv-flashcard { perspective: 1000px; width: 100%; min-height: 400px; cursor: pointer; }
+.iv-flashcard-inner { position: relative; width: 100%; min-height: 400px; text-align: center; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+.iv-flashcard.flipped .iv-flashcard-inner { transform: rotateY(180deg); }
+.iv-flashcard-front, .iv-flashcard-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 32px; display: flex; flex-direction: column; overflow: hidden; }
+.iv-flashcard-front { justify-content: center; align-items: center; text-align: center; }
+.iv-flashcard-back { transform: rotateY(180deg); text-align: left; overflow-y: auto; cursor: default; }
+.iv-flashcard-front::-webkit-scrollbar, .iv-flashcard-back::-webkit-scrollbar { width: 8px; }
+.iv-flashcard-front::-webkit-scrollbar-thumb, .iv-flashcard-back::-webkit-scrollbar-thumb { background-color: var(--border); border-radius: 4px; }
+.iv-flashcard-meta { position: absolute; top: 16px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; }
+.iv-flashcard-content { display: flex; flex-direction: column; width: 100%; flex: 1; align-items: center; justify-content: center; }
+.iv-flashcard-back .iv-flashcard-content { align-items: flex-start; justify-content: flex-start; margin-top: 36px; padding-bottom: 20px; }
+.iv-flashcard-front .iv-flashcard-content { font-size: 1.3rem; font-weight: 500; color: var(--ink); padding: 0 20px; line-height: 1.6; }
+.iv-flashcard-hint { position: absolute; bottom: 16px; left: 50%; width: 100%; transform: translateX(-50%); font-size: 0.85rem; color: var(--ink-faint); animation: pulse 2s infinite; font-weight: 500; }
+@keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+.iv-flashcard-controls { display: flex; align-items: center; gap: 24px; margin-top: 10px; padding-bottom: 40px; }
+.iv-flashcard-nav-btn { display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); color: var(--ink-muted); cursor: pointer; transition: all 0.2s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.iv-flashcard-nav-btn:hover:not(:disabled) { background: var(--surface-raised); color: var(--ink); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.iv-flashcard-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; box-shadow: none; }
+@media (max-width: 600px) { .iv-flashcard { min-height: 340px; } .iv-flashcard-inner, .iv-flashcard-front, .iv-flashcard-back { min-height: 340px; padding: 24px; } .iv-flashcard-front .iv-flashcard-content { font-size: 1.15rem; padding: 0; } .iv-flashcard-nav-btn { width: 48px; height: 48px; } }
+
