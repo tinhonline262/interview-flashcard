@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next dev",
     "build": "next build",
-    "review": "node scripts/review.js"
+    "review": "node scripts/review.js",
+    "start": "next start"
   },
   "keywords": [],
   "author": "",
